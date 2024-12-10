@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Concert Ticket Booking System", "Concert Ticket Booking System\Concert Ticket Booking System.csproj", "{07956839-075B-4C3D-A933-A7C694898FFB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07956839-075B-4C3D-A933-A7C694898FFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07956839-075B-4C3D-A933-A7C694898FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07956839-075B-4C3D-A933-A7C694898FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07956839-075B-4C3D-A933-A7C694898FFB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
