@@ -1,18 +1,27 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using Concert_Ticket_Booking_System;
 
-class Concert
+public interface IConcert
 {
-    string name {get; set;}
-    string date {get; set;}
-    string location {get; set;}
-    string availableSeats {get; set;}
+    string Name { get; set; }
+    DateTime Date { get; set; }
+    string Location { get; set; }
+    int AvailableSeats { get; set; }
+}
 
-    public Concert(string name, string date, string location, string availableSeats)
+public class Concert : IConcert
+{
+    public string Name { get; set; }
+    public DateTime Date { get; set; }
+    public string Location { get; set; }
+    public int AvailableSeats { get; set; }
+
+    public Concert(string name, DateTime date, string location, int availableSeats)
     {
-        this.name = name;
-        this.date = date;
-        this.location = location;
-        this.availableSeats = availableSeats;
+        Name = name;
+        Date = date;
+        Location = location;
+        AvailableSeats = availableSeats;
     }
 }
 
@@ -32,5 +41,23 @@ class Ticket
     public void bookTicket()
     {
         
+    }
+}
+
+class BookingSystem
+{
+    public void AddNewConcert()
+    {
+
+    }
+
+    public void TicketReservation()
+    {
+
+    }
+
+    public void ShowConcert()
+    {
+
     }
 }
