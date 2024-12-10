@@ -38,9 +38,19 @@ class Ticket
         this.seatNumber = seatNumber;
     }
 
-    public void bookTicket()
+    public bool bookTicket()
     {
-        
+        if (Concert.AvailableSeats > 0)
+        {
+            Concert.AvailableSeats--;
+            Console.WriteLine($"Bilet zarezerowany na koncert : {Concert.Name}, miejsce {seatNumber} , cena: {price}.");
+            return true;
+        }
+        else
+        {
+            Console.WriteLine($"Brak dostepnych miejsc na koncert: {Concert.Name}");
+            return false;
+        }
     }
 }
 
