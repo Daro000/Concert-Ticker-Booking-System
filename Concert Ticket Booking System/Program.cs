@@ -15,4 +15,22 @@ class Concert
         this.availableSeats = availableSeats;
     }
 }
+
+class Ticket
+{
+    string concert {get; set;}
+    int price {get; set;}
+    int seatNumber {get; set;}
+
+    public Ticket(string concert, int price, int seatNumber)
+    {
+        this.concert = concert;
+        this.price = price;
+        this.seatNumber = seatNumber;
+    }
+
+    public void bookTicket()
+    {
         
+    }
+}
