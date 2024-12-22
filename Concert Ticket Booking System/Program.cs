@@ -56,9 +56,30 @@ class Ticket
 
 class BookingSystem
 {
-    public void AddNewConcert()
+    
+    private List<Concert> concerts = new List<Concert>();
+    private List<Ticket> tickets = new List<Ticket>();
+    public void AddNewConcert(Concert concert)
     {
+    concerts.Add(concert);
 
+    if (concert is VIPConcert vipConcert)
+    {
+        Console.WriteLine($"Dodano Koncert Vipowski: {vipConcert.Name}, Lokalizacja: {vipConcert.Location}, Data: {vipConcert.Date.ToShortDateString()}, Wolne miejsca: {vipConcert.AvailableSeats}, Meet&Greet: {vipConcert.HasMeetAndGreet}");;
+    }
+    else if (concert is OnLineConcert onlineConcert)
+    {
+        Console.WriteLine($"Dodano Online Koncert: {onlineConcert.Name}, Platforma: {onlineConcert.StreamingPlatform}, Data: {onlineConcert.Date.ToShortDateString()}, Wolne miejsca: {onlineConcert.AvailableSeats}");
+    }
+    else if (concert is PrivateConcert privateConcert)
+    {
+        Console.WriteLine($"Dodano Prywatny Koncert: {privateConcert.Name}, Lokalizacja: {privateConcert.Location}, Data: {privateConcert.Date.ToShortDateString()}, Na zaproszenie: {privateConcert.IsInvitation}");
+    }
+    else
+    {
+        Console.WriteLine($"Dodano Regularny Koncert: {concert.Name}, Lokalizacja: {concert.Location}, Data: {concert.Date.ToShortDateString()}, Wolne miejsca: {concert.AvailableSeats}");
+    }
+    
     }
 
     public void TicketReservation()
