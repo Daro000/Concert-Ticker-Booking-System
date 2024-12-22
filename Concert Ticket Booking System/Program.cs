@@ -82,9 +82,21 @@ class BookingSystem
     
     }
 
-    public void TicketReservation()
+    public void TicketReservation(string concertName, int seatNumber, int price)
     {
-
+        foreach (var concert in concerts)
+        {
+            if (concert.Name == concertName && concert.AvailableSeats > 0)
+            {
+                concert.AvailableSeats--;
+                Ticket ticket = new Ticket(concertName, price, seatNumber);
+                tickets.Add(ticket);
+                Console.WriteLine($"Zarezerwowano bilet na koncert {concertName}, miejsce {seatNumber} , cena: {price}.");
+                return;
+            }
+        }
+        
+        Console.WriteLine($"Brak wolnych miejsc na koncert lub nie istnieje");
     }
 
     public void ShowConcert()
