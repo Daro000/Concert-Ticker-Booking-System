@@ -89,6 +89,31 @@ class BookingSystem
 
     public void ShowConcert()
     {
+        if (concerts.Count == 0)
+        {
+            Console.WriteLine("Nie ma koncertów");
+            return;
+        }
 
+        foreach (var concert in concerts)
+        {
+            if (concert is VIPConcert vipConcert)
+            {
+                Console.WriteLine($"VIP Koncert: {vipConcert.Name}, Data: {vipConcert.Date.ToShortDateString()}, Lokalizacja: {vipConcert.Location}, Wolne miejsca: {vipConcert.AvailableSeats}, Meet&Greet: {vipConcert.HasMeetAndGreet}");
+            }
+            else if (concert is OnLineConcert onlineConcert)
+            {
+                Console.WriteLine($"Online Koncert: {onlineConcert.Name}, Data: {onlineConcert.Date.ToShortDateString()}, Platforma: {onlineConcert.StreamingPlatform}");
+            }
+            else if (concert is PrivateConcert privateConcert)
+            {
+                Console.WriteLine($"Prywatny Koncert: {privateConcert.Name}, Data: {privateConcert.Date.ToShortDateString()}, Lokalizacja: {privateConcert.Location}, Na zaproszenie: {privateConcert.IsInvitation}");
+            }
+            else
+            {
+                Console.WriteLine($"Regularny Koncert: {concert.Name}, Data: {concert.Date.ToShortDateString()}, Lokalizacja: {concert.Location}, Wolne miejsca: {concert.AvailableSeats}");
+            }
+        }
     }
 }
+
