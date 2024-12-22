@@ -27,31 +27,17 @@ public class Concert : IConcert
 
 class Ticket
 {
-    string concert {get; set;}
-    int price {get; set;}
-    int seatNumber {get; set;}
+    string ConcertName {get; set;}
+    int Price {get; set;}
+    int SeatNumber {get; set;}
 
-    public Ticket(string concert, int price, int seatNumber)
+    public Ticket(string ConcertName, int Price, int SeatNumber)
     {
-        this.concert = concert;
-        this.price = price;
-        this.seatNumber = seatNumber;
+        this.ConcertName = ConcertName;
+        this.Price = Price;
+        this.SeatNumber = SeatNumber;
     }
-
-    public bool bookTicket()
-    {
-        if (Concert.AvailableSeats > 0)
-        {
-            Concert.AvailableSeats--;
-            Console.WriteLine($"Bilet zarezerowany na koncert : {Concert.Name}, miejsce {seatNumber} , cena: {price}.");
-            return true;
-        }
-        else
-        {
-            Console.WriteLine($"Brak dostepnych miejsc na koncert: {Concert.Name}");
-            return false;
-        }
-    }
+    
 }
 
 class BookingSystem
@@ -59,6 +45,7 @@ class BookingSystem
     
     private List<Concert> concerts = new List<Concert>();
     private List<Ticket> tickets = new List<Ticket>();
+    
     public void AddNewConcert(Concert concert)
     {
     concerts.Add(concert);
@@ -75,7 +62,7 @@ class BookingSystem
     {
         Console.WriteLine($"Dodano Prywatny Koncert: {privateConcert.Name}, Lokalizacja: {privateConcert.Location}, Data: {privateConcert.Date.ToShortDateString()}, Na zaproszenie: {privateConcert.IsInvitation}");
     }
-    else
+    else if (concert is RegularConcert)
     {
         Console.WriteLine($"Dodano Regularny Koncert: {concert.Name}, Lokalizacja: {concert.Location}, Data: {concert.Date.ToShortDateString()}, Wolne miejsca: {concert.AvailableSeats}");
     }
@@ -84,19 +71,26 @@ class BookingSystem
 
     public void TicketReservation(string concertName, int seatNumber, int price)
     {
-        foreach (var concert in concerts)
+        var concert = concerts.FirstOrDefault(c => c.Name == concertName);
+
+        if (concert == null)
         {
-            if (concert.Name == concertName && concert.AvailableSeats > 0)
-            {
-                concert.AvailableSeats--;
-                Ticket ticket = new Ticket(concertName, price, seatNumber);
-                tickets.Add(ticket);
-                Console.WriteLine($"Zarezerwowano bilet na koncert {concertName}, miejsce {seatNumber} , cena: {price}.");
-                return;
-            }
+            Console.WriteLine($"Koncert o nazwie '{concertName}' nie istnieje.");
+            return;
         }
-        
-        Console.WriteLine($"Brak wolnych miejsc na koncert lub nie istnieje");
+
+        if (concert.AvailableSeats > 0)
+        {
+            concert.AvailableSeats--;
+            Ticket ticket = new Ticket(concertName, price, seatNumber);
+            tickets.Add(ticket);
+            Console.WriteLine(
+                $"Zarezerwowano bilet na koncert {concertName}, miejsce: {seatNumber}, cena: {price} zł.");
+        }
+        else
+        {
+            Console.WriteLine($"Brak wolnych miejsc na koncert {concertName}.");
+        }
     }
 
     public void ShowConcert()
@@ -129,3 +123,24 @@ class BookingSystem
     }
 }
 
+class Program
+{
+    static void Main(string[] args)
+    {
+        BookingSystem bookingSystem = new BookingSystem();
+        
+        bookingSystem.AddNewConcert(new RegularConcert("Disco noc", new DateTime(2024, 5, 20), "Warszawa", 100));
+        bookingSystem.AddNewConcert(new VIPConcert("Jaca", new DateTime(2024, 6, 15), "Kraków", 50, true));
+        bookingSystem.AddNewConcert(new OnLineConcert("Trwam", new DateTime(2024, 7, 10), "YouTube", int.MaxValue));
+        bookingSystem.AddNewConcert(new PrivateConcert("Klasyczna muzyka", new DateTime(2024, 8, 5), "Gdańsk", 20, true));
+        
+        Console.WriteLine("\nDostępne koncerty:");
+        bookingSystem.ShowConcert();
+        
+        Console.WriteLine("\nRezerwacja biletów:");
+        bookingSystem.TicketReservation("Disco noc", 1, 200);
+        bookingSystem.TicketReservation("Trwam", 5, 500);
+        
+    }
+    
+}
